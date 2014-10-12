@@ -31,6 +31,7 @@ public class Void {
     int enemyships = 2;
     int playershipcount;
     int scavenger;
+    Boolean scavengerGL;
     String fire;
     String upgrade;
     String move;
@@ -61,12 +62,14 @@ public class Void {
     String ansiCyan = "\u001b[36m";
     BufferedWriter bf;
     Boolean introMission;
-    int earthZ1Intro2Enemy = 1;
+    int earthZ1Enemy = 1;
     int earthEnemy;
     Boolean alert;
     int playerAttackRoll;
     Boolean fighterGL;
     int predatorSelected;
+    int scavengerSelected;
+    Boolean splashScreen;
     //Location
     String location = "A1";
     int earthMissionCount = 1;
@@ -78,7 +81,6 @@ public class Void {
     //Characters
     String cpName;
     //Objects
-    VoidGUI gui = new VoidGUI();
 
     public static void main(String[] args) {
 
@@ -94,8 +96,9 @@ public class Void {
         factory = 1;
         mainGun = 20;
         droneArmor = 40;
-        predator = 0;
+        predator = 3;
         playershipcount = 5;
+        scavenger = 1;
         //Player
         //Resources
         elements = 400;
@@ -108,6 +111,8 @@ public class Void {
         introMission = true;
         alert = false;
         fighterGL = false;
+        scavengerGL = false;
+        splashScreen = true;
         //Location
         playerPlanet = "earth";
         earth = true;
@@ -120,14 +125,18 @@ public class Void {
 
     public void play() {
         //Game starts displays Logo and starter text.
-        splashScreen();
+        if (splashScreen == true) {
+            splashScreen();
+            splashScreen = false;
+        }
+
         MenuBar();
-        
+//         System.out.print(ansiGreen + ">" + ansiNormal);
 
         while (enemyships > 0) {
 
             input = scanner.nextLine();
-            
+
             if (input.equalsIgnoreCase("locate")) {
                 locate();
             } else if (input.equalsIgnoreCase("attack")) {
@@ -164,13 +173,11 @@ public class Void {
 //            if (playerPlanet.equalsIgnoreCase("Fleet Command")) {
 //                fleetCommand();
 //            }
-
         }
 
     }
 
     private void selectMenu() {
-        String selectInput;
 
         MenuBar();
 
@@ -180,22 +187,27 @@ public class Void {
         System.out.println("2.Scavenger(s)");
         System.out.println("3.Factory(s)");
 
-        selectInput = scanner.nextLine();
-        if (selectInput.equalsIgnoreCase("1") && predator > 0) {
+        input = scanner.nextLine();
+        if (input.equalsIgnoreCase("1") && predator > 0) {
             System.out.println("\nPredator(s) Selected...");
-             soundPrompt();
+
             System.out.println("1.Group-Link");
             System.out.println("2.Individual");
 
             scanner.nextLine();
-            if (selectInput.equalsIgnoreCase("1")) {
-                 soundPrompt();
+            if (input.equalsIgnoreCase("1")) {
+                clearScreen();
+                commandPal();
+
                 System.out.println(" Group-Link initiated....");
                 fighterGL = true;
-                
-                if (fighterGL == true){
+
+                if (fighterGL == true) {
                     predatorSelected = predator;
-                    System.out.println(predator + " x Predator(s) Selected\n");
+                    commandPal();
+                    System.out.println(" " + predator + " x Predator(s) Selected\n");
+                    pause1();
+
                     commandPal();
                     System.out.println(" Solution Ready..Firing.");
                     soundFiring();
@@ -205,6 +217,26 @@ public class Void {
         } else if (input.equalsIgnoreCase("2")) {
 
             System.out.println(" Scavenger Selected...");
+
+            System.out.println("1.Group-Link");
+            System.out.println("2.Individual");
+
+            input = scanner.nextLine();
+            if (input.equalsIgnoreCase("1")) {
+                clearScreen();
+                commandPal();
+
+                System.out.println(" Group-Link initiated....");
+                scavengerGL = true;
+
+                if (scavengerGL == true) {
+                    scavengerSelected = scavenger;
+                    commandPal();
+                    System.out.println(" " + scavenger + " x Scavenger(s) Selected\n");
+                    pause2();
+
+                }
+            }
 
         } else if (input.equalsIgnoreCase("3")) {
 
@@ -256,14 +288,14 @@ public class Void {
             System.out.println(" You have " + earthMissionCount + " mission(s) in this sector.");
             pause1();
             commandPal();
-            System.out.println(" There are " + earthZ1Intro2Enemy + " enemy(s) in range.");
+            System.out.println(" There are " + earthZ1Enemy + " enemy(s) in range.");
         }
 
     }
 
     public void attackMenu() {
         soundTyping();
-        clearScreen();
+        
         MenuBar();
         commandPal();
         System.out.println(" Scanning " + playerPlanet + " for targets...");
@@ -271,27 +303,30 @@ public class Void {
         commandPal();
         System.out.println(" Targets found...Loading target list.");
         pause1();
-        clearScreen();
+        
         MenuBar();
         AnsiConsole.out().print(ansiRed + "<" + "Select Targets" + ">" + ansiNormal);
         if (playerPlanet.equalsIgnoreCase("earth")) {
-            System.out.println("\n1.Drone(s) x" + earthZ1Intro2Enemy);
+            System.out.println("\n1.Drone(s) x" + earthZ1Enemy);
             input = scanner.nextLine();
             if (input.equalsIgnoreCase("1")) {
                 selectMenu();
                 playerAttackRoll = randomNumber(4);
 
                 if (playerAttackRoll > 0) {
-                    System.out.println("Hit!");
+                    soundTyping();
+                    commandPal();
                     droneArmor = droneArmor - mainGun;
-                    System.out.println(" Target has " + droneArmor + " armor left.");
+                    System.out.println(" Target has " + ansiRed + droneArmor + ansiNormal + " armor left.");
 
                     if (droneArmor > 0) {
-                        System.out.println(" Drone has " + droneArmor + " armor left");
-                        System.out.println(" What is your next action");
+
+                        actionMenu();
                     } else if (droneArmor <= 0) {
-                        earthZ1Intro2Enemy = earthZ1Intro2Enemy - 1;
+                        earthZ1Enemy = earthZ1Enemy - 1;
+                        commandPal();
                         System.out.println(" Drone has been destroyed...");
+                        actionMenu();
                     }
 
                 }
@@ -386,12 +421,12 @@ public class Void {
     }
 
     private void buildPredator() {
-        
+
         System.out.println("Predator Built.");
         predator++;
         bio = bio - predatorCostBio;
         elements = elements - predatorCostElement;
-        clearScreen();
+        
         MenuBar();
         System.out.println("You now have " + predator + " Predator(s)");
         soundPredBuilt();
@@ -408,9 +443,9 @@ public class Void {
     }
 
     private void buildMenu() {
+
         
-        clearScreen();
-        
+
         MenuBar();
         if (factory > 0) {
 
@@ -419,12 +454,12 @@ public class Void {
             commandPal();
 
             System.out.println(" Link established...");
-           
+
             pause1();
             commandPal();
             System.out.println(" Loading build options...");
             pause1();
-            clearScreen();
+            
             MenuBar();
 
             System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
@@ -434,7 +469,7 @@ public class Void {
 
             if (input.equalsIgnoreCase("1")) {
                 if (bio > predatorCostBio && elements > predatorCostElement) {
-                    clearScreen();
+                    
                     MenuBar();
 
                     System.out.println("Building Predator...");
@@ -490,9 +525,9 @@ public class Void {
         soundTyping();
         System.out.println("Activating CommandPal...");
         pause2();
-        
+
         System.out.println("CommandPal Active.");
-        
+
     }
 
     private void helpMenu() {
@@ -510,17 +545,17 @@ public class Void {
 
     }
 
-    private void earth() {
+    private void zoneEarth() {
         if (earth == true) {
 
-            clearScreen();
+            
             MenuBar();
             commandPal();
             AnsiConsole.out().println(ansiRed + " [Location: Earth]" + ansiNormal);
-            
+
             earth = false;
         } else {
-            clearScreen();
+            
             MenuBar();
             commandPal();
             System.out.println(" Welcome back to Earth.");
@@ -606,28 +641,31 @@ public class Void {
     }
 
     private void MenuBar() {
+        clearScreen();
         System.out.println("*****************************************************");
         System.out.println(ansiRed + " Bio:" + bio + "  Elements:" + elements + "  Predators:" + predator + "  Scavengers:" + scavenger + ansiNormal);
         System.out.println("*****************************************************\n\n\n");
-        
+
     }
 
     private void actionMenu() {
         soundTyping();
-        clearScreen();
-        MenuBar();
         
+        MenuBar();
+
         System.out.println(ansiRed + "<Action>" + ansiNormal);
         System.out.println("1.Scan");
         System.out.println("2.Attack Solution");
         System.out.println("3.Build");
         System.out.println("4.Select");
         System.out.println("5.Jump");
-        System.out.println("6.Help");
+        System.out.println("6.Close Action Menu");
         input = scanner.nextLine();
         if (input.equalsIgnoreCase("1")) {
+
             scan();
         } else if (input.equalsIgnoreCase("2")) {
+
             attackMenu();
         } else if (input.equalsIgnoreCase("3")) {
             buildMenu();
@@ -636,7 +674,7 @@ public class Void {
         } else if (input.equalsIgnoreCase("5")) {
             jumpMenu();
         } else if (input.equalsIgnoreCase("6")) {
-            helpMenu();
+            play();
         }
 
     }
@@ -659,7 +697,7 @@ public class Void {
 
         }
     }
-    
+
     public void soundFiring() {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/Minigun-Jim_Rogers-633894726.wav"));
@@ -671,19 +709,7 @@ public class Void {
 
         }
     }
-    
-    public void soundPrompt() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/Blop-Mark_DiAngelo-79054334.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
 
-        } catch (Exception ex) {
-
-        }
-    }
-    
     public void soundPredBuilt() {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/UFO_Takeoff-Sonidor-1604321570.wav"));
@@ -695,7 +721,7 @@ public class Void {
 
         }
     }
-    
+
     public void soundTyping() {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/Typing On Old Typewriter-SoundBible.com-673408176.wav"));
