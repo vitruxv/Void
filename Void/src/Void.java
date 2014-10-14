@@ -1,4 +1,5 @@
 
+import Classes.VoidWorld;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -136,7 +137,7 @@ public class Void {
             splashScreen();
             splashScreen = false;
         }
-        actionMenu();
+//        actionMenu();
         while (enemyships > 0) {
 
             input = scanner.nextLine();
@@ -163,8 +164,10 @@ public class Void {
                 selectMenu();
             } else if (input.equalsIgnoreCase("action")) {
                 actionMenu();
-            } else if (input.equalsIgnoreCase("Timer")) {
-
+            } else if (input.equalsIgnoreCase("Test")) {
+                VoidWorld world = new VoidWorld();
+                
+                world.getTest();
             } else {
                 inputError();
             }
@@ -595,8 +598,9 @@ public class Void {
         clearScreen();
         System.out.println("*****************************************************");
         System.out.println(ansiRed + " Bio:" + bio + "  Elements:" + elements + "  Predators:" + predator + "  Scavengers:" + scavenger + ansiNormal);
+        System.out.println("*****************************************************");
+        System.out.println(ansiRed + " XP:" + xp + "  Level:" + level + ansiNormal);
         System.out.println("*****************************************************\n\n\n");
-
     }
 
     private void actionMenu() {
@@ -846,6 +850,163 @@ public class Void {
             }
         } 
     
+    public void level5BuildOptions() {
+            System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
+                System.out.println("2.Scavenger");
+                System.out.println("3.Factory");
+            
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("1")) {
+                if (bio > predatorCostBio && elements > predatorCostElement) {
+
+                    menuBar();
+                    commandPal();
+                    System.out.println(" Predator Queued.");
+                    pause2();
+                    timerBuildPredator();
+                    actionMenu();
+
+                } else {
+                    System.out.println(" \nYou do not have enough resources..");
+                }
+            } else if (input.equalsIgnoreCase("2")) {
+
+                System.out.println(" \nBuilding Scavenger...");
+                buildScavenger();
+
+            } else if (input.equalsIgnoreCase("3")) {
+
+                System.out.println(" \nBuilding Factory...");
+                timerBuildFactory();
+            }
+        } 
+    public void level8BuildOptions() {
+            System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
+                System.out.println("2.Scavenger");
+                System.out.println("3.Factory");
+            
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("1")) {
+                if (bio > predatorCostBio && elements > predatorCostElement) {
+
+                    menuBar();
+                    commandPal();
+                    System.out.println(" Predator Queued.");
+                    pause2();
+                    timerBuildPredator();
+                    actionMenu();
+
+                } else {
+                    System.out.println(" \nYou do not have enough resources..");
+                }
+            } else if (input.equalsIgnoreCase("2")) {
+
+                System.out.println(" \nBuilding Scavenger...");
+                buildScavenger();
+
+            } else if (input.equalsIgnoreCase("3")) {
+
+                System.out.println(" \nBuilding Factory...");
+                timerBuildFactory();
+            }
+        } 
+    
+    public void level13BuildOptions() {
+            System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
+                System.out.println("2.Scavenger");
+                System.out.println("3.Factory");
+            
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("1")) {
+                if (bio > predatorCostBio && elements > predatorCostElement) {
+
+                    menuBar();
+                    commandPal();
+                    System.out.println(" Predator Queued.");
+                    pause2();
+                    timerBuildPredator();
+                    actionMenu();
+
+                } else {
+                    System.out.println(" \nYou do not have enough resources..");
+                }
+            } else if (input.equalsIgnoreCase("2")) {
+
+                System.out.println(" \nBuilding Scavenger...");
+                buildScavenger();
+
+            } else if (input.equalsIgnoreCase("3")) {
+
+                System.out.println(" \nBuilding Factory...");
+                timerBuildFactory();
+            }
+        } 
+    
+    public void level15BuildOptions() {
+            System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
+                System.out.println("2.Scavenger");
+                System.out.println("3.Factory");
+            
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("1")) {
+                if (bio > predatorCostBio && elements > predatorCostElement) {
+
+                    menuBar();
+                    commandPal();
+                    System.out.println(" Predator Queued.");
+                    pause2();
+                    timerBuildPredator();
+                    actionMenu();
+
+                } else {
+                    System.out.println(" \nYou do not have enough resources..");
+                }
+            } else if (input.equalsIgnoreCase("2")) {
+
+                System.out.println(" \nBuilding Scavenger...");
+                buildScavenger();
+
+            } else if (input.equalsIgnoreCase("3")) {
+
+                System.out.println(" \nBuilding Factory...");
+                timerBuildFactory();
+            }
+        } 
+    public void level20BuildOptions() {
+            System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
+                System.out.println("2.Scavenger");
+                System.out.println("3.Factory");
+            
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("1")) {
+                if (bio > predatorCostBio && elements > predatorCostElement) {
+
+                    menuBar();
+                    commandPal();
+                    System.out.println(" Predator Queued.");
+                    pause2();
+                    timerBuildPredator();
+                    actionMenu();
+
+                } else {
+                    System.out.println(" \nYou do not have enough resources..");
+                }
+            } else if (input.equalsIgnoreCase("2")) {
+
+                System.out.println(" \nBuilding Scavenger...");
+                buildScavenger();
+
+            } else if (input.equalsIgnoreCase("3")) {
+
+                System.out.println(" \nBuilding Factory...");
+                timerBuildFactory();
+            }
+        } 
     
 
 }
