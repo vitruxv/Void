@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
@@ -44,7 +47,8 @@ public class Void {
     //Player   
     String playername;
     int playerhp;
-
+    int level;
+    int xp;
     //Resource  
     int elements;
     int bio;
@@ -100,6 +104,8 @@ public class Void {
         playershipcount = 5;
         scavenger = 1;
         //Player
+        level = 1;
+        xp = 100;
         //Resources
         elements = 400;
         bio = 400;
@@ -116,7 +122,7 @@ public class Void {
         earthZ1EnemyDrones = randomNumber(4);
         //Location
         playerPlanet = "earth";
-        earthVisited = true;
+        earthVisited = false;
         mars = 1;
         fc = 1;
         //Characters
@@ -130,10 +136,7 @@ public class Void {
             splashScreen();
             splashScreen = false;
         }
-
-        menuBar();
-//         System.out.print(ansiGreen + ">" + ansiNormal);
-
+        actionMenu();
         while (enemyships > 0) {
 
             input = scanner.nextLine();
@@ -160,20 +163,11 @@ public class Void {
                 selectMenu();
             } else if (input.equalsIgnoreCase("action")) {
                 actionMenu();
+            } else if (input.equalsIgnoreCase("Timer")) {
+
             } else {
                 inputError();
             }
-
-//            if (playerPlanet.equalsIgnoreCase("Earth")) {
-//
-//                earth();
-//            }
-//            if (playerPlanet.equalsIgnoreCase("Mars")) {
-//                mars();
-//            }
-//            if (playerPlanet.equalsIgnoreCase("Fleet Command")) {
-//                fleetCommand();
-//            }
         }
 
     }
@@ -183,10 +177,13 @@ public class Void {
         menuBar();
 
         System.out.println(ansiRed + "\n<Select Ship(s)>" + ansiNormal);
-
-        System.out.println("1.Predator(s)");
-        System.out.println("2.Scavenger(s)");
-        System.out.println("3.Factory(s)");
+        if (level == 1) {
+            System.out.println("1.Predator(s)");
+            System.out.println("2.Scavenger(s)");
+            System.out.println("3.Factory(s)");
+        } else if (level == 2) {
+            System.out.println(" More to follow.");
+        }
 
         input = scanner.nextLine();
         if (input.equalsIgnoreCase("1") && predator > 0) {
@@ -215,7 +212,7 @@ public class Void {
                     soundFiring();
                     pause2();
                 }
-            } else if (input.equalsIgnoreCase("2")){
+            } else if (input.equalsIgnoreCase("2")) {
                 clearScreen();
                 commandPal();
                 predatorSelected = 1;
@@ -289,7 +286,7 @@ public class Void {
         menuBar();
         commandPal();
         System.out.println(" System Error..Please Try again.");
-
+        actionMenu();
     }
 
     public void scan() {
@@ -307,7 +304,7 @@ public class Void {
 
     public void attackMenu() {
         soundTyping();
-        
+
         menuBar();
         commandPal();
         System.out.println(" Scanning " + playerPlanet + " for targets...");
@@ -315,12 +312,12 @@ public class Void {
         commandPal();
         System.out.println(" Targets found...Loading target list.");
         pause1();
-        
+
         menuBar();
         AnsiConsole.out().print(ansiRed + "<" + "Select Targets" + ">" + ansiNormal);
         if (playerPlanet.equalsIgnoreCase("earth")) {
             earthCombat();
-            
+
         } else if (playerPlanet.equalsIgnoreCase("mars")) {
             System.out.println("\n1.Mars Enemies");
         } else {
@@ -411,7 +408,7 @@ public class Void {
         predator++;
         bio = bio - predatorCostBio;
         elements = elements - predatorCostElement;
-        
+
         menuBar();
         System.out.println("You now have " + predator + " Predator(s)");
         soundPredBuilt();
@@ -429,59 +426,28 @@ public class Void {
 
     private void buildMenu() {
 
-        
-
         menuBar();
         if (factory > 0) {
 
             pause1();
             soundTyping();
             commandPal();
-
             System.out.println(" Link established...");
-
-            pause1();
             commandPal();
             System.out.println(" Loading build options...");
             pause1();
-            
             menuBar();
-
-            System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
-            System.out.println("2.Scavenger");
-            System.out.println("3.Factory");
-            input = scanner.nextLine();
-
-            if (input.equalsIgnoreCase("1")) {
-                if (bio > predatorCostBio && elements > predatorCostElement) {
-                    
-                    menuBar();
-
-                    System.out.println("Building Predator...");
-                    buildPredator();
-
-                } else {
-
-                    System.out.println(" \nYou do not have enough resources..");
-
-                }
-            } else if (input.equalsIgnoreCase("2")) {
-
-                System.out.println(" \nBuilding Scavenger...");
-                buildScavenger();
-
-            } else if (input.equalsIgnoreCase("3")) {
-
-                System.out.println(" \nBuilding Factory...");
-                buildFactory();
-
+            if (level ==1){
+                level1BuildOptions();
             }
-        } else {
-
+            else if (level ==2){
+                System.out.println("Display Level 2 options.");
+            }
+        }    
+           else {
             System.out.println(" \nFactory not Online...");
-
-        }
-
+        } 
+        
     }
 
     private void splashScreen() {
@@ -512,7 +478,7 @@ public class Void {
         pause2();
 
         System.out.println("CommandPal Active.");
-
+        
     }
 
     private void helpMenu() {
@@ -534,14 +500,13 @@ public class Void {
         earthZ1EnemyDrones = randomNumber(4);
         if (earthVisited == true) {
 
-            
             menuBar();
             commandPal();
             AnsiConsole.out().println(ansiRed + " [Location: Earth]" + ansiNormal);
 
             earthVisited = false;
         } else {
-            
+
             menuBar();
             commandPal();
             System.out.println(" Welcome back to Earth.");
@@ -636,12 +601,10 @@ public class Void {
 
     private void actionMenu() {
         soundTyping();
-        
         menuBar();
-
         System.out.println(ansiRed + "<Action>" + ansiNormal);
         System.out.println("1.Scan");
-        System.out.println("2.Attack Solution");
+        System.out.println("2.Firing Solution");
         System.out.println("3.Build");
         System.out.println("4.Select");
         System.out.println("5.Jump");
@@ -674,7 +637,7 @@ public class Void {
 
     public void soundSplashScreen() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/Martian_Death_Ray-Mike_Koenig-937891031.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/Martian_Death_Ray-Mike_Koenig-937891031.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
@@ -686,7 +649,7 @@ public class Void {
 
     public void soundFiring() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/Minigun-Jim_Rogers-633894726.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/Minigun-Jim_Rogers-633894726.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
@@ -698,7 +661,7 @@ public class Void {
 
     public void soundPredBuilt() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/UFO_Takeoff-Sonidor-1604321570.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/UFO_Takeoff-Sonidor-1604321570.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
@@ -710,7 +673,7 @@ public class Void {
 
     public void soundTyping() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/Typing On Old Typewriter-SoundBible.com-673408176.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/Typing On Old Typewriter-SoundBible.com-673408176.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
@@ -719,10 +682,10 @@ public class Void {
 
         }
     }
-    
+
     public void soundCounterFire() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/Sounds/Grenade-SoundBible.com-2124844747.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/Grenade-SoundBible.com-2124844747.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
@@ -731,66 +694,158 @@ public class Void {
 
         }
     }
-    
-    public void earthCombat(){
+
+    public void earthCombat() {
         System.out.println("\n1.Drone(s) x" + earthZ1EnemyDrones);
-            input = scanner.nextLine();
-            if (input.equalsIgnoreCase("1")) {
-                selectMenu();
-                playerAttackRoll = randomNumber(4);
+        input = scanner.nextLine();
+        if (input.equalsIgnoreCase("1")) {
+            selectMenu();
+            playerAttackRoll = randomNumber(4);
 
-                if (playerAttackRoll > 0) {
-                    soundTyping();
-                    commandPal();
-                    if (fighterGL == true){
+            if (playerAttackRoll > 0) {
+                soundTyping();
+                commandPal();
+                if (fighterGL == true) {
                     droneArmor = droneArmor - mainGun * predator;
-                    } else {droneArmor = droneArmor - mainGun;}
-                    System.out.println(" Target has " + ansiRed + droneArmor + ansiNormal + " armor left.");
-                    pause2();
-                    if (droneArmor > 0) {
+                } else {
+                    droneArmor = droneArmor - mainGun;
+                }
+                System.out.println(" Target has " + ansiRed + droneArmor + ansiNormal + " armor left.");
+                pause2();
+                if (droneArmor > 0) {
 
-                        actionMenu();
-                    } else if (droneArmor <= 0) {
-                        earthZ1EnemyDrones = earthZ1EnemyDrones - 1;
-                        commandPal();
-                        System.out.println(" Drone has been destroyed...");
-                        pause2();
-                        actionMenu();
-                    }
-
-                }else {
+                    actionMenu();
+                } else if (droneArmor <= 0) {
+                    earthZ1EnemyDrones = earthZ1EnemyDrones - 1;
                     commandPal();
-                    System.out.println(" Target " + ansiRed + " Evaded." + ansiNormal);
+                    System.out.println(" Drone has been destroyed...");
                     pause1();
                     commandPal();
-                    System.out.println(" Target has " + ansiRed + droneArmor + ansiNormal + " armor left.");
-                    pause2();
-                    menuBar();
-                    commandPal();
-                    System.out.println(" Counter Fire Detected.");
-                    
-                    int counterFireRoll = randomNumber(3);
-                    if (counterFireRoll == 0){
-                        
-                        commandPal();
-                        System.out.println(" Enemy Evaded.");
-                        pause3();
-                        
-                    } else if (counterFireRoll == 1){
-                        
-                        commandPal();
-                        soundCounterFire();
-                        System.out.println(" Factory has been damaged");
-                        pause3();
-                    } else if (counterFireRoll == 2){
-                        
-                        commandPal();
-                        soundCounterFire();
-                        System.out.println(" Predator has been hit.");
-                        pause3();
-                    }
+                    System.out.println(" You have gained " + ansiGreen + "20 XP" + ansiNormal );
+                    pause3();
                     actionMenu();
                 }
+
+            } else {
+                commandPal();
+                System.out.println(" Target " + ansiRed + " Evaded." + ansiNormal);
+                pause1();
+                commandPal();
+                System.out.println(" Target has " + ansiRed + droneArmor + ansiNormal + " armor left.");
+                pause2();
+                menuBar();
+                commandPal();
+                System.out.println(" Counter Fire Detected.");
+
+                int counterFireRoll = randomNumber(3);
+                if (counterFireRoll == 0) {
+
+                    commandPal();
+                    System.out.println(" Enemy Evaded.");
+                    pause3();
+
+                } else if (counterFireRoll == 1) {
+
+                    commandPal();
+                    soundCounterFire();
+                    System.out.println(" Factory has been hit.");
+                    pause3();
+                } else if (counterFireRoll == 2) {
+
+                    commandPal();
+                    soundCounterFire();
+                    System.out.println(" Predator has been hit.");
+                    pause3();
+                }
+                actionMenu();
             }
+        }
     }
+
+    public void timerBuildPredator() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+
+            public void run() {
+                buildPredator();
+            }
+        }, 20 * 1000);
+    }
+
+    public void timerBuildFactory() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+
+            public void run() {
+                buildFactory();
+            }
+        }, 20 * 1000);
+    }
+
+    public void level1BuildOptions() {
+            System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
+                System.out.println("2.Scavenger");
+                System.out.println("3.Factory");
+            
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("1")) {
+                if (bio > predatorCostBio && elements > predatorCostElement) {
+
+                    menuBar();
+                    commandPal();
+                    System.out.println(" Predator Queued.");
+                    pause2();
+                    timerBuildPredator();
+                    actionMenu();
+
+                } else {
+                    System.out.println(" \nYou do not have enough resources..");
+                }
+            } else if (input.equalsIgnoreCase("2")) {
+
+                System.out.println(" \nBuilding Scavenger...");
+                buildScavenger();
+
+            } else if (input.equalsIgnoreCase("3")) {
+
+                System.out.println(" \nBuilding Factory...");
+                timerBuildFactory();
+            }
+        }
+    
+    public void level2BuildOptions() {
+            System.out.println("\n1.Predator " + "Bio:" + predatorCostBio + " Elements:" + predatorCostElement);
+                System.out.println("2.Scavenger");
+                System.out.println("3.Factory");
+            
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("1")) {
+                if (bio > predatorCostBio && elements > predatorCostElement) {
+
+                    menuBar();
+                    commandPal();
+                    System.out.println(" Predator Queued.");
+                    pause2();
+                    timerBuildPredator();
+                    actionMenu();
+
+                } else {
+                    System.out.println(" \nYou do not have enough resources..");
+                }
+            } else if (input.equalsIgnoreCase("2")) {
+
+                System.out.println(" \nBuilding Scavenger...");
+                buildScavenger();
+
+            } else if (input.equalsIgnoreCase("3")) {
+
+                System.out.println(" \nBuilding Factory...");
+                timerBuildFactory();
+            }
+        } 
+    
+    
+
 }
