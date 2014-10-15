@@ -136,8 +136,9 @@ public class Void {
         if (splashScreen == true) {
             splashScreen();
             splashScreen = false;
+            actionMenu();
         }
-//        actionMenu();
+      
         while (enemyships > 0) {
 
             input = scanner.nextLine();
@@ -598,8 +599,8 @@ public class Void {
         clearScreen();
         System.out.println("*****************************************************");
         System.out.println(ansiRed + " Bio:" + bio + "  Elements:" + elements + "  Predators:" + predator + "  Scavengers:" + scavenger + ansiNormal);
-        System.out.println("*****************************************************");
-        System.out.println(ansiRed + " XP:" + xp + "  Level:" + level + ansiNormal);
+       // System.out.println("*****************************************************");
+        System.out.println(ansiRed + " XP:" + xp + "   Level:" + level + ansiNormal);
         System.out.println("*****************************************************\n\n\n");
     }
 
