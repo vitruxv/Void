@@ -415,14 +415,14 @@ public class Void {
         menuBar();
         System.out.println("You now have " + predator + " Predator(s)");
         soundPredBuilt();
-        System.out.println("\n"
+        System.out.println(ansiRed + "\n"
                 + "  	    ||	\n"
                 + "        \\--|OO|--/\n"
                 + "    \\======/[]\\======/\n"
                 + "<xxx------|----|------xxx>\n"
                 + "    /======\\[]/======\\\n"
                 + "       oO0Oo  oO0Oo\n"
-                + "           \\--/\n");
+                + "           \\--/\n" + ansiNormal);
         pause2();
 
     }
