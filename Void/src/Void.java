@@ -136,8 +136,9 @@ public class Void {
         if (splashScreen == true) {
             splashScreen();
             splashScreen = false;
+            actionMenu();
         }
-//        actionMenu();
+      
         while (enemyships > 0) {
 
             input = scanner.nextLine();
@@ -415,14 +416,14 @@ public class Void {
         menuBar();
         System.out.println("You now have " + predator + " Predator(s)");
         soundPredBuilt();
-        System.out.println(ansiRed + "\n"
+        System.out.println("\n"
                 + "  	    ||	\n"
                 + "        \\--|OO|--/\n"
                 + "    \\======/[]\\======/\n"
                 + "<xxx------|----|------xxx>\n"
                 + "    /======\\[]/======\\\n"
                 + "       oO0Oo  oO0Oo\n"
-                + "           \\--/\n" + ansiNormal);
+                + "           \\--/\n");
         pause2();
 
     }
@@ -598,8 +599,8 @@ public class Void {
         clearScreen();
         System.out.println("*****************************************************");
         System.out.println(ansiRed + " Bio:" + bio + "  Elements:" + elements + "  Predators:" + predator + "  Scavengers:" + scavenger + ansiNormal);
-        System.out.println("*****************************************************");
-        System.out.println(ansiRed + " XP:" + xp + "  Level:" + level + ansiNormal);
+       // System.out.println("*****************************************************");
+        System.out.println(ansiRed + " XP:" + xp + "   Level:" + level + ansiNormal);
         System.out.println("*****************************************************\n\n\n");
     }
 
