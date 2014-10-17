@@ -12,4 +12,26 @@ package Classes;
  */
 public class Menus {
     
+    
+    public void Menus(){
+        
+        
+    
+}
+    
+    
+    private void getHelpMenu() {
+
+        System.out.println("\n............................");
+        System.out.println("<Load>");
+        System.out.println("<Save>");
+        System.out.println("<Fire>");
+        System.out.println("<Jump>");
+        System.out.println("<Locate>");
+        System.out.println("<Channel> (Not Ready)");
+        System.out.println("<Exit>");
+        System.out.println("<Scan> (Not Ready)");
+        System.out.println("............................\n\n");
+
+    }
 }

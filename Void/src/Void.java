@@ -1,4 +1,5 @@
 
+import Classes.Menus;
 import Classes.VoidWorld;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -90,6 +91,7 @@ public class Void {
     public static void main(String[] args) {
 
         Void game = new Void();
+        
         AnsiConsole.systemInstall();
 
         game.play();
@@ -128,10 +130,13 @@ public class Void {
         fc = 1;
         //Characters
         cpName = "CommandPal";
+        
 
     }
 
     public void play() {
+        Menus menus = new Menus();    
+        
         //Game starts displays Logo and starter text.
         if (splashScreen == true) {
             splashScreen();
@@ -158,7 +163,7 @@ public class Void {
             } else if (input.equalsIgnoreCase("scan")) {
                 scan();
             } else if (input.equalsIgnoreCase("help")) {
-                helpMenu();
+                
             } else if (input.equalsIgnoreCase("build")) {
                 buildMenu();
             } else if (input.equalsIgnoreCase("select")) {
@@ -485,20 +490,7 @@ public class Void {
         
     }
 
-    private void helpMenu() {
-
-        System.out.println("\n............................");
-        System.out.println("<Load>");
-        System.out.println("<Save>");
-        System.out.println("<Fire>");
-        System.out.println("<Jump>");
-        System.out.println("<Locate>");
-        System.out.println("<Channel> (Not Ready)");
-        System.out.println("<Exit>");
-        System.out.println("<Scan> (Not Ready)");
-        System.out.println("............................\n\n");
-
-    }
+    
 
     private void zoneEarth() {
         earthZ1EnemyDrones = randomNumber(4);
