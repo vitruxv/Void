@@ -165,7 +165,7 @@ public class Void {
             } else if (input.equalsIgnoreCase("help")) {
                 menus.getHelpMenu();
             } else if (input.equalsIgnoreCase("build")) {
-                buildMenu();
+                menus.getbuildMenu();
             } else if (input.equalsIgnoreCase("select")) {
                 selectMenu();
             } else if (input.equalsIgnoreCase("action")) {
@@ -433,31 +433,7 @@ public class Void {
 
     }
 
-    private void buildMenu() {
-
-        menuBar();
-        if (factory > 0) {
-
-            pause1();
-            soundTyping();
-            commandPal();
-            System.out.println(" Link established...");
-            commandPal();
-            System.out.println(" Loading build options...");
-            pause1();
-            menuBar();
-            if (level ==1){
-                level1BuildOptions();
-            }
-            else if (level ==2){
-                System.out.println("Display Level 2 options.");
-            }
-        }    
-           else {
-            System.out.println(" \nFactory not Online...");
-        } 
-        
-    }
+    
 
     private void splashScreen() {
         clearScreen();
@@ -614,7 +590,7 @@ public class Void {
 
             attackMenu();
         } else if (input.equalsIgnoreCase("3")) {
-            buildMenu();
+            menus.getbuildMenu();
         } else if (input.equalsIgnoreCase("4")) {
             selectMenu();
         } else if (input.equalsIgnoreCase("5")) {

@@ -34,4 +34,30 @@ public class Menus {
         System.out.println("............................\n\n");
 
     }
+    
+    public void getbuildMenu() {
+
+        menuBar();
+        if (factory > 0) {
+
+            pause1();
+            soundTyping();
+            commandPal();
+            System.out.println(" Link established...");
+            commandPal();
+            System.out.println(" Loading build options...");
+            pause1();
+            menuBar();
+            if (level ==1){
+                level1BuildOptions();
+            }
+            else if (level ==2){
+                System.out.println("Display Level 2 options.");
+            }
+        }    
+           else {
+            System.out.println(" \nFactory not Online...");
+        } 
+        
+    }
 }
