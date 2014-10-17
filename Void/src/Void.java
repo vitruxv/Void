@@ -608,65 +608,9 @@ public class Void {
         return randomNumber;
     }
 
-    public void soundSplashScreen() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/Martian_Death_Ray-Mike_Koenig-937891031.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
+    
 
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void soundFiring() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/Minigun-Jim_Rogers-633894726.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void soundPredBuilt() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/UFO_Takeoff-Sonidor-1604321570.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void soundTyping() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/Typing On Old Typewriter-SoundBible.com-673408176.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void soundCounterFire() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("Sounds/Grenade-SoundBible.com-2124844747.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-
-        } catch (Exception ex) {
-
-        }
-    }
+    
 
     public void earthCombat() {
         System.out.println("\n1.Drone(s) x" + earthZ1EnemyDrones);
