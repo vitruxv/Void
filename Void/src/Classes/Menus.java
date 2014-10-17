@@ -20,7 +20,7 @@ public class Menus {
 }
     
     
-    private void getHelpMenu() {
+    public void getHelpMenu() {
 
         System.out.println("\n............................");
         System.out.println("<Load>");

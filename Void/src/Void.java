@@ -163,7 +163,7 @@ public class Void {
             } else if (input.equalsIgnoreCase("scan")) {
                 scan();
             } else if (input.equalsIgnoreCase("help")) {
-                
+                menus.getHelpMenu();
             } else if (input.equalsIgnoreCase("build")) {
                 buildMenu();
             } else if (input.equalsIgnoreCase("select")) {
